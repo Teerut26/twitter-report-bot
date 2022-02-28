@@ -1,4 +1,5 @@
 require("dotenv").config();
+import OnInteraction from "./Event/onInteraction";
 import RegisterCommand from "./register-command";
 const { Client, Intents } = require("discord.js");
 
@@ -17,20 +18,16 @@ class Bot {
     new RegisterCommand();
     this.client.login(this.token);
     this.client.on("ready", this.onReady);
-    this.client.on("interactionCreate", this.onInteraction);
+    this.client.on("interactionCreate", (interaction: any)=>new OnInteraction(interaction));
   }
 
   onReady(client: any): void {
     console.log(`Ready ${client.user.username}`);
   }
 
-  async onInteraction(interaction: any): Promise<void> {
-    if (!interaction.isCommand()) return;
-
-    if (interaction.commandName === 'ping') {
-      await interaction.reply('Pong!');
-    }
-  }
+//   async onInteraction(interaction: any): Promise<void> {
+    
+//   }
 }
 
 new Bot();
