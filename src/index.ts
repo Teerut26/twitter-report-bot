@@ -2,7 +2,7 @@ require("dotenv").config();
 import RegisterCommand from "./register-command";
 const { Client, Intents } = require("discord.js");
 
-class WatchActivity {
+class Bot {
   private token = process.env.TOKEN;
   private client: any;
 
@@ -33,4 +33,4 @@ class WatchActivity {
   }
 }
 
-new WatchActivity();
+new Bot();
