@@ -1,3 +1,4 @@
+const trend = require("../commands/trend")
 export default class OnInteraction {
   constructor(interaction: any) {
     this.onInteraction(interaction);
@@ -7,8 +8,8 @@ export default class OnInteraction {
     if (!interaction.isCommand()) return;
 
     switch (interaction.commandName) {
-      case "ping":
-        return await interaction.reply("Pong!");
+      case "trend":
+        return trend(interaction)
       default:
         break;
     }

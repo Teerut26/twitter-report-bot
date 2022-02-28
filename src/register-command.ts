@@ -1,16 +1,55 @@
-import { optionsType } from "./enum/command_option_type";
+import { TimeChoices } from "./enum/command/time_choices";
+import { CommandOptionType } from "./enum/command_option_type";
 
 require("dotenv").config();
 const { REST } = require("@discordjs/rest");
 const { Routes } = require("discord-api-types/v9");
+const path = require("path");
 
 export default class RegisterCommand {
-  private commands = [
+  private commands: Array<Object> = [
     {
-      name: "ping",
-      description: "Replies with Pong!",
+      name: "trend",
+      description: "รายการ Top Hashtags in Thailand",
       options: [
-        { name: "number", description: "number", required: false, type: optionsType.INTEGER },
+        {
+          name: "time",
+          description: "ช่างเวลา",
+          required: true,
+          type: CommandOptionType.STRING,
+          choices: [
+            {
+              name: "ตอนนี้",
+              value: TimeChoices.NOW,
+              type: CommandOptionType.STRING,
+            },
+            {
+              name: "ทวีตมากที่สุด",
+              value: TimeChoices.MOST_TWEETED,
+              type: CommandOptionType.STRING,
+            },
+            {
+              name: "24 ชม",
+              value: TimeChoices._24H,
+              type: CommandOptionType.STRING,
+            },
+            {
+              name: "7 วัน",
+              value: TimeChoices._7D,
+              type: CommandOptionType.STRING,
+            },
+            {
+              name: "30 วัน",
+              value: TimeChoices._30D,
+              type: CommandOptionType.STRING,
+            },
+            {
+              name: "ปี",
+              value: TimeChoices.YEAR,
+              type: CommandOptionType.STRING,
+            },
+          ],
+        },
       ],
     },
   ];
@@ -21,6 +60,8 @@ export default class RegisterCommand {
 
   constructor() {
     this.rest = new REST({ version: "9" }).setToken(process.env.TOKEN);
+    console.log(path.join(__dirname, "commands"));
+
     this.register();
   }
 
