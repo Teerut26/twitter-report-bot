@@ -5,6 +5,7 @@ WORKDIR /usr/src/app
 
 COPY package.json /usr/src/app
 RUN npm install
+RUN npm install ts-node -g
 COPY . /usr/src/app
 
-CMD ["node", "dist/index.js"]
+CMD ["ts-node", "./src/index.ts"]
