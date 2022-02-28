@@ -6,8 +6,11 @@ export default class OnInteraction {
   async onInteraction(interaction: any): Promise<void> {
     if (!interaction.isCommand()) return;
 
-    if (interaction.commandName === "ping") {
-      await interaction.reply("Pong!");
+    switch (interaction.commandName) {
+      case "ping":
+        return await interaction.reply("Pong!");
+      default:
+        break;
     }
   }
 }
