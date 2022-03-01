@@ -1,6 +1,8 @@
+import { CommandInteraction } from "discord.js";
+
 const trend = require("../commands/trend")
 export default class OnInteraction {
-  constructor(interaction: any) {
+  constructor(interaction: CommandInteraction) {
     this.onInteraction(interaction);
   }
 

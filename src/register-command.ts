@@ -1,5 +1,5 @@
-import { TimeChoices } from "./enum/command/time_choices";
-import { CommandOptionType } from "./enum/command_option_type";
+import { TimeChoices } from "./enum/command/TimeChoices";
+import { CommandOptionType } from "./enum/CommandOptionType";
 
 require("dotenv").config();
 const { REST } = require("@discordjs/rest");
@@ -21,11 +21,6 @@ export default class RegisterCommand {
             {
               name: "ตอนนี้",
               value: TimeChoices.NOW,
-              type: CommandOptionType.STRING,
-            },
-            {
-              name: "ทวีตมากที่สุด",
-              value: TimeChoices.MOST_TWEETED,
               type: CommandOptionType.STRING,
             },
             {
