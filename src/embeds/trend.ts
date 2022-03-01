@@ -1,6 +1,5 @@
 import {
   CommandInteraction,
-  InteractionReplyOptions,
   MessageEmbed,
 } from "discord.js";
 import { TimeChoices } from "../enum/command/TimeChoices";
@@ -18,7 +17,6 @@ export const MessageEmbedType1 = async (
   let embed = new MessageEmbed()
     .setColor("#1D9BF0")
     .setTitle(timeChoices)
-    // .setDescription("Some description here")
     .setThumbnail(
       "https://play-lh.googleusercontent.com/9N5WyhIgseJWfmtPCvJwik1rumF1jeTMqhV1Rxu_zU88duWQK9btrxVr4-Sn10HbcqCs"
     )
@@ -43,7 +41,6 @@ export const MessageEmbedType2 = async (
     let embed = new MessageEmbed()
       .setColor("#1D9BF0")
       .setTitle(timeChoices)
-      // .setDescription("Some description here")
       .setThumbnail(
         "https://play-lh.googleusercontent.com/9N5WyhIgseJWfmtPCvJwik1rumF1jeTMqhV1Rxu_zU88duWQK9btrxVr4-Sn10HbcqCs"
       )

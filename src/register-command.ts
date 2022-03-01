@@ -47,6 +47,10 @@ export default class RegisterCommand {
         },
       ],
     },
+    {
+        name:"help",
+        description: "ช่วยเหลือ"
+    }
   ];
 
   private client_id = process.env.CLIENT_ID;
