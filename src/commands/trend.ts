@@ -6,9 +6,7 @@ import { getDataType1, getDataType2 } from "./../modules/trend";
 module.exports = async (interaction: CommandInteraction) => {
   switch (interaction.options.getString("time")) {
     case TimeChoices.NOW:
-        return console.log( await getDataType2(TimeChoices.NOW));
-        
-    //   return MessageEmbedType2(interaction, TimeChoices.NOW, await getDataType2(TimeChoices.NOW));
+      return MessageEmbedType2(interaction, TimeChoices.NOW, await getDataType2(TimeChoices.NOW));
     case TimeChoices._24H:
       return MessageEmbedType1(interaction, TimeChoices._24H, await getDataType1(TimeChoices._24H));
     case TimeChoices._7D:

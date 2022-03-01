@@ -46,26 +46,37 @@ export const getDataType2 = async (type: TimeChoices): Promise<Object> => {
     url: `https://getdaytrends.com/thailand/`,
     headers: {
       "x-requested-with": "XMLHttpRequest",
-      
     },
   });
   const $: CheerioAPI = cheerio.load(data);
-  console.log(data);
-  
-  const result =
-    Array.from(
-      $(
-        "table.table.table-hover.text-left.clickable.ranking.trends.wider.mb-0 > tbody > tr"
-      )
-    ).map((element) => ({
-      index: Number.parseInt($(element).find("tr > th").text()),
-      hastag: $(element).find("td.main > a").html(),
-      tweets: $(element).find("td:nth-child(3)").html(),
-      record: $(element).find("td:nth-child(4)").html(),
-      link: `https://twitter.com/search?q=${encodeURIComponent(
-        $(element).find("td.main > a").text()
-      )}&src=trend_click&vertical=trends`,
-    }));
 
-  return result;
+  const result = Array.from(
+    $(
+      "table.table.table-hover.text-left.clickable.ranking.trends.wider.mb-0 > tbody > tr"
+    )
+  ).map((element) => ({
+    index: Number.parseInt($(element).find("tr > th").text()),
+    hastag: $(element).find("td.main > a").html(),
+    tweets: $(element).find("td.main > div.desc > span").text(),
+    record: null,
+    link: `https://twitter.com/search?q=${encodeURIComponent(
+      $(element).find("td.main > a").text()
+    )}&src=trend_click&vertical=trends`,
+  }));
+
+  const result_2 = Array.from(
+    $(
+      "table.table.table-hover.text-left.clickable.ranking.trends.wider.collapse > tbody > tr"
+    )
+  ).map((element) => ({
+    index: Number.parseInt($(element).find("tr > th").text()),
+    hastag: $(element).find("td.main > a").html(),
+    tweets: $(element).find("td.main > div.desc > span").text(),
+    record: null,
+    link: `https://twitter.com/search?q=${encodeURIComponent(
+      $(element).find("td.main > a").text()
+    )}&src=trend_click&vertical=trends`,
+  }));
+
+  return [...result,...result_2];
 };

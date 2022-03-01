@@ -12,7 +12,7 @@ export const MessageEmbedType1 = async (
 ) => {
   const result = data.map((item: any) => ({
     name: `${item.index}. ${item.hastag}`,
-    value: `${item.tweets} ${item.record}`,
+    value: `${item.tweets} ${item.record} [ดูรายละเอียด](${item.link})`,
   }));
 
   let embed = new MessageEmbed()
@@ -37,7 +37,7 @@ export const MessageEmbedType2 = async (
   ) => {
     const result = data.map((item: any) => ({
       name: `${item.index}. ${item.hastag}`,
-      value: `${item.tweets} ${item.record}`,
+      value: `${item.tweets} [ดูรายละเอียด](${item.link})`,
     }));
   
     let embed = new MessageEmbed()
