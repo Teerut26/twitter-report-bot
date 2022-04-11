@@ -19,7 +19,7 @@ module.exports = {
             type: "WATCHING",
         });
 
-        cron.schedule("5 * * * *", async () => {
+        cron.schedule("*/5 * * * *", async () => {
             let res = await getDataTrend.getCountry("thailand", "now");
             console.log(
                 `>> ${res[0].hastag as string} ${
