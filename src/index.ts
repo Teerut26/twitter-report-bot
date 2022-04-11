@@ -1,37 +1,28 @@
-require("dotenv").config();
-import { CommandInteraction } from "discord.js";
-import OnInteraction from "./Event/onInteraction";
-import RegisterCommand from "./register-command";
-const { Client, Intents } = require("discord.js");
+import { Client, Collection, Intents } from "discord.js";
+import fs from "fs";
 
-class Bot {
-  private token = process.env.TOKEN;
-  private client: any;
+const client = new Client({ intents: [Intents.FLAGS.GUILDS] }); //เราไม่จำเป็นต้องใช้ FLAGS.GUILD_MESSAGES อีกแล้ว เนื่องจาก interaction มีให้เราทุกอย่าง
 
-  constructor() {
-    this.client = new Client({
-      intents: [
-        Intents.FLAGS.GUILDS,
-        Intents.FLAGS.GUILD_MESSAGES,
-        Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
-      ],
-    });
-    new RegisterCommand();
-    this.client.login(this.token);
-    this.client.on("ready", this.onReady);
-    this.client.on(
-      "interactionCreate",
-      (interaction: CommandInteraction) => new OnInteraction(interaction)
-    );
-  }
+//ทำการโหลดไฟล์คำสั่งเข้าบอท
+client.commands = new Collection();
+const commandFiles = fs
+    .readdirSync("./commands")
 
-  onReady(client: any): void {
-    console.log(`Ready ${client.user.username}`);
-  }
-
-  //   async onInteraction(interaction: any): Promise<void> {
-
-  //   }
+for (const file of commandFiles) {
+    const command = require(`./commands/${file}`);
+    client.commands.set(command.data.name, command);
 }
 
-new Bot();
+const eventFiles = fs
+    .readdirSync("./events")
+
+for (const file of eventFiles) {
+    const event = require(`./events/${file}`);
+    if (event.once) {
+        client.once(event.name, (...args) => event.execute(...args));
+    } else {
+        client.on(event.name, (...args) => event.execute(...args));
+    }
+}
+
+client.login(process.env.TOKEN);
