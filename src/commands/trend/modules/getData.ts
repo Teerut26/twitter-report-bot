@@ -72,7 +72,7 @@ export default class GetDataTrend {
 
     public async getCountry(
         country: string,
-        time: TimeChoices
+        time: string
     ): Promise<ResponseInterface[]> {
         let result;
 
