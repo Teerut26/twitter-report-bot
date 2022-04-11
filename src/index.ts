@@ -1,28 +1,42 @@
 import { Client, Collection, Intents } from "discord.js";
 import fs from "fs";
+import path from "path";
+import "./push_command"
+require("dotenv").config();
 
-const client = new Client({ intents: [Intents.FLAGS.GUILDS] }); //เราไม่จำเป็นต้องใช้ FLAGS.GUILD_MESSAGES อีกแล้ว เนื่องจาก interaction มีให้เราทุกอย่าง
+declare module "discord.js" {
+    export interface Client {
+        commands: Collection<unknown, any>;
+    }
+}
 
-//ทำการโหลดไฟล์คำสั่งเข้าบอท
+const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+
 client.commands = new Collection();
-const commandFiles = fs
-    .readdirSync("./commands")
+const commandFiles = fs.readdirSync(path.join(__dirname, "commands"))
+// .filter(file => file.match( /.ts|.js/g ));
 
+console.log(`------------load commands------------`)
 for (const file of commandFiles) {
-    const command = require(`./commands/${file}`);
+    console.log(`[X] ${file}`)
+    const command = require(`${path.join(__dirname, "commands")}/${file}`);
     client.commands.set(command.data.name, command);
 }
 
-const eventFiles = fs
-    .readdirSync("./events")
+const eventFiles = fs.readdirSync(path.join(__dirname, "events")).filter(file => file.match( /.ts|.js/g ));
 
+console.log(`------------load events------------`)
 for (const file of eventFiles) {
-    const event = require(`./events/${file}`);
+    console.log(`[X] ${file}`)
+    const event = require(`${path.join(__dirname, "events")}/${file}`);
     if (event.once) {
         client.once(event.name, (...args) => event.execute(...args));
     } else {
         client.on(event.name, (...args) => event.execute(...args));
     }
 }
+console.log(`------------success------------`)
 
 client.login(process.env.TOKEN);
+
+//ref https://github.com/manybaht/manybaht-music
