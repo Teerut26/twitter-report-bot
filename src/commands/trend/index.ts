@@ -133,7 +133,7 @@ module.exports = {
 
             let embed = new MessageEmbed()
                 .setColor("#1D9BF0")
-                .setTitle("sdfsdf")
+                .setTitle(`${country} ${time}`)
                 .setThumbnail(
                     "https://play-lh.googleusercontent.com/9N5WyhIgseJWfmtPCvJwik1rumF1jeTMqhV1Rxu_zU88duWQK9btrxVr4-Sn10HbcqCs"
                 )
