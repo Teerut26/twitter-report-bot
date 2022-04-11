@@ -4,6 +4,7 @@
 CLIENT_ID=
 GUILD_ID=
 TOKEN=
+NODE_ENV=
 ```
 
 ## install dependencies
