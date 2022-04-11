@@ -1,5 +1,5 @@
 const { REST } = require("@discordjs/rest");
-const { Routes } = require("discord-api-types/v9");
+import { Routes } from "discord-api-types/v9";
 import fs from "fs";
 import path from "path";
 require("dotenv").config();
@@ -22,15 +22,15 @@ const rest = new REST({ version: "9" }).setToken(process.env.TOKEN);
             console.log("development");
             await rest.put(
                 Routes.applicationGuildCommands(
-                    process.env.CLIENT_ID,
-                    process.env.GUILD_ID
+                    process.env.CLIENT_ID as string,
+                    process.env.GUILD_ID as string
                 ),
                 { body: commands }
             );
         } else if (process.env.NODE_ENV === "production") {
             console.log("production");
             await rest.put(
-                Routes.applicationGuildCommands(process.env.CLIENT_ID),
+                Routes.applicationCommands(process.env.CLIENT_ID as string),
                 {
                     body: commands,
                 }
