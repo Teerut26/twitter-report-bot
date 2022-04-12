@@ -15,15 +15,7 @@ import fs from "fs";
 //     family: "twitter",
 // });
 
-const fontFiles = fs.readdirSync(path.join(__dirname, "fonts"));
-console.log(`------------loads font------------`);
-for (const file of fontFiles) {
-    console.log(`[X] ${file}`);
-    registerFont(`${path.join(__dirname, "fonts")}/${file}`, {
-        family: "twitter",
-    });
-}
-console.log(`------------loads success------------`);
+
 
 const choicesCountry = [
     {

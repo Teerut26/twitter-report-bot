@@ -1,3 +1,4 @@
+import { registerFont } from "canvas";
 import { Client, Collection, Intents } from "discord.js";
 import fs from "fs";
 import path from "path";
@@ -11,6 +12,16 @@ declare module "discord.js" {
 }
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+
+const fontFiles = fs.readdirSync("fonts");
+console.log(`------------loads font------------`);
+for (const file of fontFiles) {
+    console.log(`[X] ${file}`);
+    registerFont(`fonts/${file}`, {
+        family: "twitter",
+    });
+}
+console.log(`------------loads success------------`);
 
 client.commands = new Collection();
 const commandFiles = fs.readdirSync(path.join(__dirname, "commands"))
