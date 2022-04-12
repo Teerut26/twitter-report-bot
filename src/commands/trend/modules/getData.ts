@@ -3,7 +3,7 @@ import axios, { AxiosResponse } from "axios";
 import { CheerioAPI } from "cheerio";
 import { TimeChoices } from "..";
 
-interface ResponseInterface {
+export interface ResponseInterface {
     index: number;
     hastag: string | null;
     tweets: string | null;
