@@ -169,7 +169,7 @@ module.exports = {
             context.font = "bold 16px Arial";
             context.textAlign = "center";
             context.fillStyle = "#9BA4AB";
-            context.fillText("Generate By Bot Twitter Report", 250, 830);
+            context.fillText("Generate By Twitter Report Bot", 250, 830);
 
             res.slice(0, 10).map((item, idx) => drawBody(idx, item));
 
