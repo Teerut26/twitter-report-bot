@@ -1,8 +1,5 @@
-import { SlashCommandBuilder } from "@discordjs/builders";
-import { CheerioAPI } from "cheerio";
 import { CommandInteraction, MessageEmbed } from "discord.js";
 import GetDataTrend from "./modules/getData";
-import * as cheerio from "cheerio";
 
 interface Field {
     name: string;

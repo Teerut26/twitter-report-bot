@@ -1,5 +1,5 @@
 import * as cheerio from "cheerio";
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 import { CheerioAPI } from "cheerio";
 import { TimeChoices } from "..";
 

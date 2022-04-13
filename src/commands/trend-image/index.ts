@@ -1,20 +1,9 @@
-import { SlashCommandBuilder } from "@discordjs/builders";
-import { CheerioAPI } from "cheerio";
 import {
     CommandInteraction,
     MessageAttachment,
-    MessageEmbed,
 } from "discord.js";
-import * as cheerio from "cheerio";
 import GetDataTrend, { ResponseInterface } from "../trend/modules/getData";
-import { createCanvas, registerFont } from "canvas";
-import path from "path";
-import fs from "fs";
-
-// registerFont(`${path.join(__dirname, "fonts")}/SFPRODISPLAYBOLD.OTF`, {
-//     family: "twitter",
-// });
-
+import { createCanvas } from "canvas";
 
 
 const choicesCountry = [
