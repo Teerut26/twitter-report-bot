@@ -35,24 +35,27 @@ module.exports = {
         cron.schedule("*/5 * * * *", async () => {
             clearInterval(intervalKeyInit);
             cronIntervalLists.map((cronIntervalList) => clearInterval(cronIntervalList));
-            let res = await getDataTrend.getCountry("thailand", "now");
+            let indexCorn = 0;
+            indexCorn = 0;
 
-            let index = 0;
+            let res = await getDataTrend.getCountry("thailand", "now");
+            
             let cronInterval = setInterval(async () => {
-                if (index > 9) index = 0;
+                if (indexCorn > 9) indexCorn = 0;
                 console.log(
-                    `>> ${indexInit + 1}. ${res[index].hastag as string} ${
-                        res[index].tweets as string
+                    `>> ${indexInit + 1}. ${res[indexCorn].hastag as string} ${
+                        res[indexCorn].tweets as string
                     } >> ${new Date().toLocaleString("th-TH")}`
                 );
                 await client.user?.setActivity({
-                    name: `${indexInit + 1}. ${res[index].hastag as string} | ${
-                        res[index].tweets as string
+                    name: `${indexInit + 1}. ${res[indexCorn].hastag as string} | ${
+                        res[indexCorn].tweets as string
                     }`,
                     type: "WATCHING",
                 });
-                index += 1;
+                indexCorn += 1;
             }, 5000);
+
             cronIntervalLists.push(cronInterval);
         });
         console.log(client.user?.username, "is Ready !");
