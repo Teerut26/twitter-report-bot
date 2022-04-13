@@ -7,31 +7,54 @@ module.exports = {
     once: true,
     async execute(client: Client) {
         const getDataTrend = new GetDataTrend();
+        let resInit = await getDataTrend.getCountry("thailand", "now");
 
-        let res = await getDataTrend.getCountry("thailand", "now");
-        console.log(
-            `>> ${res[0].hastag as string} ${
-                res[0].tweets as string
-            } >> ${new Date().toLocaleString("th-TH")}`
-        );
-        client.user?.setActivity({
-            name: `${res[0].hastag as string} | ${res[0].tweets as string}`,
-            type: "WATCHING",
-        });
-
-        cron.schedule("*/5 * * * *", async () => {
-            let res = await getDataTrend.getCountry("thailand", "now");
+        
+        //init
+        let indexInit = 0;
+        let intervalKeyInit = setInterval(async () => {
+            if (indexInit > 9) indexInit = 0;
             console.log(
-                `>> ${res[0].hastag as string} ${
-                    res[0].tweets as string
+                `>> ${indexInit + 1}. ${resInit[indexInit].hastag as string} ${
+                    resInit[indexInit].tweets as string
                 } >> ${new Date().toLocaleString("th-TH")}`
             );
-            client.user?.setActivity({
-                name: `${res[0].hastag as string} | ${res[0].tweets as string}`,
+            await client.user?.setActivity({
+                name: `${indexInit + 1}. ${
+                    resInit[indexInit].hastag as string
+                } | ${resInit[indexInit].tweets as string}`,
                 type: "WATCHING",
             });
-        });
+            indexInit += 1;
+        }, 5000);
 
+
+
+        //corn
+        let cronIntervalLists: NodeJS.Timer[] = [];
+        cron.schedule("*/5 * * * *", async () => {
+            clearInterval(intervalKeyInit);
+            cronIntervalLists.map((cronIntervalList) => clearInterval(cronIntervalList));
+            let res = await getDataTrend.getCountry("thailand", "now");
+
+            let index = 0;
+            let cronInterval = setInterval(async () => {
+                if (index > 9) index = 0;
+                console.log(
+                    `>> ${res[index].hastag as string} ${
+                        res[index].tweets as string
+                    } >> ${new Date().toLocaleString("th-TH")}`
+                );
+                await client.user?.setActivity({
+                    name: `${res[index].hastag as string} | ${
+                        res[index].tweets as string
+                    }`,
+                    type: "WATCHING",
+                });
+                index += 1;
+            }, 5000);
+            cronIntervalLists.push(cronInterval);
+        });
         console.log(client.user?.username, "is Ready !");
     },
 };
