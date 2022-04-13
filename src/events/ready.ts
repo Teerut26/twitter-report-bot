@@ -41,12 +41,12 @@ module.exports = {
             let cronInterval = setInterval(async () => {
                 if (index > 9) index = 0;
                 console.log(
-                    `>> ${res[index].hastag as string} ${
+                    `>> ${indexInit + 1}. ${res[index].hastag as string} ${
                         res[index].tweets as string
                     } >> ${new Date().toLocaleString("th-TH")}`
                 );
                 await client.user?.setActivity({
-                    name: `${res[index].hastag as string} | ${
+                    name: `${indexInit + 1}. ${res[index].hastag as string} | ${
                         res[index].tweets as string
                     }`,
                     type: "WATCHING",
