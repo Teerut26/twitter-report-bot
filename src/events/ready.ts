@@ -40,7 +40,6 @@ module.exports = {
             let res = await getDataTrend.getCountry("thailand", "now");
             let indexCorn = 0;
             let cronInterval = setInterval(async () => {
-                console.log(indexCorn)
                 if (indexCorn > 9) indexCorn = 0;
                 console.log(
                     `>> ${indexCorn + 1}. ${res[indexCorn].hastag as string} ${
